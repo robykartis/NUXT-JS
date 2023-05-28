@@ -2,7 +2,7 @@
     <div class="mt-5 container">
         <div class="card">
             <div class="card-header">
-                <h4>Add Student
+                <h4>Edit Student
                     <NuxtLink class="btn btn-danger float-end" to="/students">Back</NuxtLink>
                 </h4>
             </div>
@@ -10,7 +10,7 @@
                 <Loading :title="isLoadingTitle" />
             </div>
             <div v-else>
-                <form @submit.prevent="saveStudent">
+                <form @submit.prevent="updateStudent">
                     <div class="card-body">
                         <div class="mb-3">
                             <label>Name</label>
@@ -24,58 +24,65 @@
                         </div>
                         <div class="mb-3">
                             <label>Email</label>
-                            <input type="email" v-model="student.email" class="form-control">
+                            <input type="text" v-model="student.email" class="form-control">
                             <span class="text-danger" v-if="this.errorList.email"> {{ this.errorList.email[0] }}</span>
                         </div>
                         <div class="mb-3">
                             <label>Phone</label>
-                            <input type="number" v-model="student.phone" class="form-control">
+                            <input type="text" v-model="student.phone" class="form-control">
                             <span class="text-danger" v-if="this.errorList.phone"> {{ this.errorList.phone[0] }}</span>
                         </div>
 
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </template>
-
 <script>
 import axios from 'axios'
 export default {
-    name: 'studentsCreate',
+    name: 'studentEdit',
     data() {
         return {
-            student: {
-                name: '',
-                course: '',
-                email: '',
-                phone: ''
-            },
+            studentId: '',
+            student: {},
             isLoading: false,
             isLoadingTitle: 'Loading...',
-            errorList: {},
+            errorList: {}
         }
     },
+    mounted() {
+        this.studentId = this.$route.params.id
+        // alert(this.studentId)
+        this.getStudent(this.studentId)
+    },
     methods: {
-        saveStudent() {
+
+        getStudent(studentId) {
             this.isLoading = true
-            this.isLoadingTitle = "Saving..."
+            axios.get(`http://localhost:8000/api/students/${studentId}/edit`).then(res => {
+                // console.log(res)
+                this.isLoading = false
+                this.student = res.data.student
+            })
+        },
+
+        updateStudent() {
+            this.isLoading = true
+            this.isLoadingTitle = "Updating..."
             var myThis = this
 
-            axios.post(`http://localhost:8000/api/students`, this.student).then(res => {
+            axios.put(`http://localhost:8000/api/students/${this.studentId}/update`, this.student).then(res => {
                 console.log(res, 'res')
-                alert(res.data.success)
+                alert(res.data.message)
 
-                this.student.name = ''
-                this.student.course = ''
-                this.student.email = ''
-                this.student.phone = ''
                 this.isLoading = false
                 this.isLoadingTitle = "Loading"
+                this.errorList = {}
             })
                 .catch(function (error) {
                     console.log(error, 'errors')
