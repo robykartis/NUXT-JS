@@ -22,6 +22,9 @@
                         <li class="nav-item">
                             <NuxtLink class="nav-link" to="/students">Students</NuxtLink>
                         </li>
+                        <li class="nav-item">
+                            <NuxtLink class="nav-link" to="/auth/login">Login</NuxtLink>
+                        </li>
                     </ul>
                 </div>
             </div>

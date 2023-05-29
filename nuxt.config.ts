@@ -1,5 +1,6 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
+
     app: {
         head: {
           title:'crud nuxt 3 application',
@@ -33,7 +34,13 @@ export default defineNuxtConfig({
                 src:'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js',
                 type:'text/javascript'
               }
-          ]
-        }
-      }
+          ],
+        },
+
+      },
+      // modules:[
+      //   '@nuxtjs/auth-next',
+      //   '@nuxtjs/toast',
+      // ]
+     
 })

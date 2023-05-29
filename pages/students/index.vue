@@ -1,9 +1,9 @@
 <template>
-    <div class="container">
+    <div class="mt-2 container">
         <div class="card">
             <div class="card-header">
                 <h4>Student List
-                    <NuxtLink to="/students/create" class="btn btn-primary float-end">Add Student</NuxtLink>
+                    <NuxtLink to="/students/create" class="btn btn-outline-dark float-end">Add Student</NuxtLink>
                 </h4>
             </div>
             <div class="card-body">
@@ -11,7 +11,7 @@
                     <Loading title="Loading.." />
                 </div>
                 <div v-else>
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-striped table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -32,10 +32,10 @@
                                 <td>{{ student.phone }}</td>
                                 <td>{{ student.created_at }}</td>
                                 <td>
-                                    <NuxtLink :to="`/students/${student.id}`" class="btn btn-success btn-sm mx-2">Edit
+                                    <NuxtLink :to="`/students/${student.id}`" class="btn btn-dark btn-sm mx-2">Edit
                                     </NuxtLink>
                                     <button type="button" @click="deleteStudent($event, student.id)"
-                                        class="btn btn-danger btn-sm mx-2">Delete</button>
+                                        class="btn btn-dark btn-sm mx-2">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -49,6 +49,7 @@
 <script>
 import axios from 'axios'
 export default {
+
     name: 'student',
     data() {
         return {

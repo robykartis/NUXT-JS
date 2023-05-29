@@ -1,5 +1,5 @@
 <template>
-    <div class="card text-center mt-3">
+    <div class="card text-center mt-3 fixed-bottom">
         <div class="card-header">
             Featured
         </div>

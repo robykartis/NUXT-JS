@@ -1,9 +1,9 @@
 <template>
-    <div class="mt-5 container">
+    <div class="mt-2 container">
         <div class="card">
             <div class="card-header">
                 <h4>Add Student
-                    <NuxtLink class="btn btn-danger float-end" to="/students">Back</NuxtLink>
+                    <NuxtLink class="btn btn-outline-dark float-end" to="/students">Back</NuxtLink>
                 </h4>
             </div>
             <div v-if="isLoading" class="p-3">
@@ -35,7 +35,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-dark">Save</button>
                     </div>
                 </form>
             </div>
@@ -45,7 +45,10 @@
 
 <script>
 import axios from 'axios'
+
+
 export default {
+
     name: 'studentsCreate',
     data() {
         return {
@@ -62,13 +65,15 @@ export default {
     },
     methods: {
         saveStudent() {
+            const router = useRouter();
             this.isLoading = true
             this.isLoadingTitle = "Saving..."
             var myThis = this
 
             axios.post(`http://localhost:8000/api/students`, this.student).then(res => {
                 console.log(res, 'res')
-                alert(res.data.success)
+                // alert(res.data.success)
+                toastr.success('Data successfully saved.')
 
                 this.student.name = ''
                 this.student.course = ''
@@ -76,6 +81,7 @@ export default {
                 this.student.phone = ''
                 this.isLoading = false
                 this.isLoadingTitle = "Loading"
+                router.push({ path: "/students" });
             })
                 .catch(function (error) {
                     console.log(error, 'errors')
